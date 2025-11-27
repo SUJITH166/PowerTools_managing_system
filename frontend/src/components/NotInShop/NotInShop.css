@@ -1,0 +1,37 @@
+.item-box-main,
+.item-box {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr) auto; /* 5 equal + auto for button */
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+  align-items: center;
+}
+
+/* Header row */
+.item-box-main {
+  background: #f4f4f4;
+  font-weight: bold;
+  border-top: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
+}
+
+/* Table cells */
+.item-box p,
+.item-box-main h3 {
+  margin: 0;
+  text-align: center;
+}
+
+/* Delete button */
+.item-box button {
+  padding: 6px 10px;
+  background: #ff4b4b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.item-box button:hover {
+  background: #e63d3d;
+}

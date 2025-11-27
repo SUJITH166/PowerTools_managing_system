@@ -1,0 +1,39 @@
+/* Full page layout */
+.main {
+  /* min-height: 100vh; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* Center horizontally */
+  width: 100%;
+}
+
+/* Buttons at the top center */
+.top-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Styling the buttons */
+button {
+  padding: 12px 24px;
+  font-size: 18px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #005fcc;
+}
+
+/* Component content below buttons */
+.content {
+  margin-top: 40px;   /* space between buttons and component */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

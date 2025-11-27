@@ -1,0 +1,103 @@
+.in-shop-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* center the container */
+  margin-top: 20px;
+}
+
+.in-shop-main {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;              /* space between rows */
+  width: 30%;              /* container width */
+}
+
+.in-shop-tool {
+  display: flex;
+  justify-content: space-between;  /* name left, button right */
+  align-items: center;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 80%;                     /* row takes full container width */
+}
+
+.tool-name {
+  flex: 1;                         /* takes available space on left */
+}
+
+.tool-quantity {
+  width: 80px;                     /* fixed width for quantity */
+  text-align: center;              /* center the number */
+}
+
+.tool-btn {
+  padding: 6px 12px;
+  font-size: 16px;
+  background-color: #209a53;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tool-btn:hover {
+  background-color: #1a7a42;
+}
+.tool-form {
+  display: flex;
+  flex-direction: column;   /* Makes inputs vertical */
+  gap: 15px;                /* Space between each input */
+  width: 100%;
+}
+
+.tool-form input{
+    margin-left: 20px;
+  padding: 12px;
+  font-size: 16px;
+  width: 85%;
+}
+/* .tool-form button {
+     padding: 12px;
+  font-size: 16px;
+  width: 20%;
+}
+
+.tool-form button {
+  background: #209a53;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+} */
+.button-row {
+  display: flex;
+  justify-content: space-between; /* Left & Right alignment */
+  margin-top: 10px;
+}
+
+/* CLOSE BUTTON */
+.close-btn {
+  width: 20%;
+  padding: 10px;
+  background: #de4242;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.close-btn:hover {
+  background-color: #ef1616;
+}
+/* SUBMIT BUTTON */
+.submit-btn {
+  width: 20%;
+  padding: 10px;
+  background: #209a53;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.submit-btn:hover {
+  background-color: #1a7a42;
+}

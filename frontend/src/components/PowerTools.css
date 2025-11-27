@@ -1,0 +1,30 @@
+/* Break out of global flex from App.css */
+.power-wrapper {
+  width: 100%;
+  display: block;
+}
+h1{
+    display: flex;
+    justify-content: center;
+}
+/* Center buttons horizontally */
+.power-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Make each button 20% width */
+.powertoolbtn {
+  width: 20%;
+  padding: 12px 24px;
+  font-size: 18px;
+  background: #209a53;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  min-width: 120px; /* avoids becoming too small */
+}
