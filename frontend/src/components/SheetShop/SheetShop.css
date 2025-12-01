@@ -21,7 +21,67 @@
   border: 1px solid #ccc;
   border-radius: 6px;
   width: 88%; 
+  font-size: 18px;
 }
 .sheetshop-btn{
     background-color: black;
+}
+.sheet-form {
+  display: flex;
+  flex-direction: column;
+  /* justify-items: center; */
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 60%;
+}
+/* .sheet-form input{
+        width: 180px;
+
+} */
+.sheet-form-in{
+    width: 180%;
+}
+.sheet-option{
+    width: 120%;
+}
+.product-row {
+  display: flex;
+  gap: 10px;
+}
+
+.add-more {
+    width: 140%;
+  background: #15191e;
+  color: white;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 35px;
+  margin-top: 15px;
+}
+
+.close-btn {
+        width: 60%;
+  background: #cc0000;
+  padding: 10px 15px;
+  color: white;
+  border-radius: 6px;
+  border: none;
+}
+
+.submit-btn {
+    width: 60%;
+  background: #111312;
+  padding: 10px 15px;
+  color: white;
+  border-radius: 6px;
+  border: none;
 }

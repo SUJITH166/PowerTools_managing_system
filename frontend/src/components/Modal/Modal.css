@@ -11,13 +11,20 @@
   align-items: center;
   z-index: 1000;
 }
+/* .modal-content {
+  width: 350px;    
+  max-width: 90%;   
+  padding: 20px;    
+  border-radius: 12px;
+} */
 
 .modal-content {
+  justify-items: center;
   background: white;
   padding: 30px;
   border-radius: 10px;
   width: 60%;      /* ⬅ Bigger width */
-  max-width: 600px; /* ⬅ Prevents it from becoming too huge */
+  max-width: 350px; /* ⬅ Prevents it from becoming too huge */
   min-height: 250px; /* ⬅ Taller popup */
   box-sizing: border-box;
 }
