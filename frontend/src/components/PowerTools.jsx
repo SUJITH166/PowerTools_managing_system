@@ -1,6 +1,6 @@
 import React from "react";
 import "./PowerTools.css";
-import { useNavigate , Outlet } from "react-router-dom";
+import { useNavigate , Outlet, Route } from "react-router-dom";
 // import InShop from "./InShop/InShop";
 // import NotInShop from "./NotInShop/NotInShop";
 const PowerTools = () => {
@@ -8,19 +8,18 @@ const PowerTools = () => {
     {
       id: 1,
       name: "In-Shop",
+      route:"InShop"
     },
     {
       id: 2,
       name: "Not-In-shop",
+      route:"NotInShop"
+
     },
   ];
   const navigate = useNavigate();
-  const handlecontent = (id) => {
-    if (id === 1) {
-      navigate("InShop");
-    } else if (id === 2) {
-      navigate("NotInShop");
-    }
+  const handlecontent = (route) => {
+   navigate(route);
   };
 
   return (
@@ -31,7 +30,7 @@ const PowerTools = () => {
         {content.map((item) => (
           <button
             key={item.id}
-            onClick={() => handlecontent(item.id)}
+            onClick={() => handlecontent(item.route)}
             className="powertoolbtn"
           >
             {item.name}
