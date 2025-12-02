@@ -9,6 +9,8 @@ const SheetShop = () => {
     { id: 4, name: "Adjustable(s)", quantity: 100, total: 150 },
   ]);
   const [showModel, setShowModel] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     number: "",
@@ -39,11 +41,27 @@ const SheetShop = () => {
       items: [...formData.items, { product: "", quantity: "" }],
     });
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Submitted Data", formData);
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const res = await fetch("http://localhost:5000/sheet/add", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+   
+  });
+
+  const data = await res.json();
+  if (data.success) {
+   
     setShowModel(false);
-  };
+    setShowPopup(true);
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 2000);
+  }
+};
+
 
   const handleRemoveItem = (index) => {
     const filterItem = formData.items.filter((_, i) => i !== index);
@@ -51,6 +69,7 @@ const SheetShop = () => {
   };
   return (
     <div className="sheetshop-main">
+        {showPopup && (<div className="popup-class">Saved Successfully ✔</div>)}
       <h2>Total</h2>
       <div className="sheetshop-container">
         {sheetJacky.map((item) => (
@@ -65,6 +84,7 @@ const SheetShop = () => {
           Add
         </button>
       </div>
+      {/* {showPopup && (<div className="popup-class">Saved Successfully ✔</div>)} */}
       {showModel && (
         <Modal onClose={handleClose}>
           <h2>Add Sheet/Jacky Entry</h2>

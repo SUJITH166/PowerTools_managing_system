@@ -98,3 +98,25 @@
   border-radius: 6px;
   border: none;
 }
+.popup-class {
+  position: fixed;
+  /* bottom: 20px;
+  right: 20px; */
+  background: rgba(0, 128, 0, 0.9);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  font-size: 16px;
+
+  /* Smooth fade animation */
+  animation: fadeInOut 2s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(10px); }
+}
