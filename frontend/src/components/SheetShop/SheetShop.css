@@ -41,17 +41,30 @@
 } */
 .sheet-form-in{
     width: 180%;
+    padding: 5px;
 }
 .sheet-option{
-    width: 120%;
+    width: 140%;
 }
+.remove-item-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 9px;
+  /* margin-left: 10px; */
+  cursor: pointer;
+  border-radius: 5px;
+}
+
 .product-row {
   display: flex;
   gap: 10px;
+  /* margin-bottom: 10px; */
 }
 
+
 .add-more {
-    width: 140%;
+    width: 130%;
   background: #15191e;
   color: white;
   padding: 8px;
