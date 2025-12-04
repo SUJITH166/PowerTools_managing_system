@@ -1,37 +1,100 @@
-.item-box-main,
-.item-box {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr) auto; /* 5 equal + auto for button */
-  padding: 12px 16px;
-  border-bottom: 1px solid #ddd;
+.notin-container {
+    width: 100%;
+    /* width:350px; */
+  padding: 20px;
+}
+
+.title {
+  margin-bottom: 15px;
+ padding-left: 25%;
+  /* align-content: center; */
+}
+
+.entry-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.entry-top {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
-/* Header row */
-.item-box-main {
-  background: #f4f4f4;
-  font-weight: bold;
-  border-top: 2px solid #ccc;
-  border-bottom: 2px solid #ccc;
+.entry-info {
+  display: flex;
+  align-items: center;
+  gap: 25px;
 }
 
-/* Table cells */
-.item-box p,
-.item-box-main h3 {
-  margin: 0;
-  text-align: center;
+.entry-date {
+  /* font-weight: bold; */
 }
 
-/* Delete button */
-.item-box button {
-  padding: 6px 10px;
-  background: #ff4b4b;
-  color: white;
-  border: none;
-  border-radius: 4px;
+.entry-name {
+  font-size: 16px;
+  margin-top: -21px;
+}
+
+.entry-buttons {
+  display: flex;
+  gap: 12px;
+  padding-right: 15px;
+}
+
+.dropdown-btn {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #eee;
   cursor: pointer;
 }
 
-.item-box button:hover {
-  background: #e63d3d;
+.close-btn {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  background: #ff6961;
+  color: white;
+  cursor: pointer;
+}
+
+.entry-items {
+  margin-top: 12px;
+  padding-left: 5px;
+}
+
+.item-line {
+  margin: 4px 0;
+}
+
+.date-block {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.entry-date {
+  /* font-weight: bold; */
+  font-size: 16px;
+}
+
+.entry-time {
+  font-size: 12px;
+  color: gray;
+  margin-top: 2px;
+}
+.model-btn{
+  display: flex;
+  padding: 20px;
+  gap:30px;
+}
+.confirm-close{
+  background-color: #d24a42;
+}
+.confirm-confirm{
+  background-color: rgb(31, 147, 31);
 }

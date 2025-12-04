@@ -41,27 +41,28 @@ const SheetShop = () => {
       items: [...formData.items, { product: "", quantity: "" }],
     });
   };
- const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!/^\d{10}$/.test(formData.number)) {
+  alert("Phone number must be exactly 10 digits");
+  return;
+}
 
-  const res = await fetch(`${process.env.REACT_APP_API_URL}/sheet/add`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(formData),
-   
-  });
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/sheet/add`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
 
-  const data = await res.json();
-  if (data.success) {
-   
-    setShowModel(false);
-    setShowPopup(true);
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 2000);
-  }
-};
-
+    const data = await res.json();
+    if (data.success) {
+      setShowModel(false);
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 2000);
+    }
+  };
 
   const handleRemoveItem = (index) => {
     const filterItem = formData.items.filter((_, i) => i !== index);
@@ -69,7 +70,7 @@ const SheetShop = () => {
   };
   return (
     <div className="sheetshop-main">
-        {showPopup && (<div className="popup-class">Saved Successfully ✔</div>)}
+      {showPopup && <div className="popup-class">Saved Successfully ✔</div>}
       <h2>Total</h2>
       <div className="sheetshop-container">
         {sheetJacky.map((item) => (
@@ -100,11 +101,21 @@ const SheetShop = () => {
             />
             <input
               className="sheet-form-in"
-              type="number"
+              type="text"
               placeholder="Phone"
               name="number"
               value={formData.number}
-              onChange={handleInputChange}
+              onChange={(e) => {
+                const value = e.target.value;
+
+                // Allow only numbers
+                if (!/^\d*$/.test(value)) return;
+
+                // Limit to 10 digits
+                if (value.length > 10) return;
+
+                setFormData({ ...formData, number: value });
+              }}
               required
             />
             {formData.items.map((item, index) => (

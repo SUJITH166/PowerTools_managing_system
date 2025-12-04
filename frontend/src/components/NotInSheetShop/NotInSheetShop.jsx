@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./NotInSheetShop.css"; // ⬅ import CSS file
+import Modal from "../Modal/Modal";
 
 const NotInSheetShop = () => {
   const [entries, setEntries] = useState([]);
-    const [openEntry, setOpenEntry] = useState(null);
+  const [openEntry, setOpenEntry] = useState(null);
+  const [confirm, setConfirm] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/sheet/all`)
       .then((res) => res.json())
@@ -25,9 +28,25 @@ const NotInSheetShop = () => {
       }),
     };
   };
-  const handleDropDown=(id)=>{
-      setOpenEntry(openEntry === id ? null : id);
-  }
+  const handleDropDown = (id) => {
+    setOpenEntry(openEntry === id ? null : id);
+  };
+  const itemRemove = (id) => {
+    setDeleteId(id);
+    setConfirm(true);
+  };
+
+  const removeConfirm = () => {
+    setEntries(entries.filter((entry) => entry._id !== deleteId));
+    setConfirm(false);
+    setDeleteId(null);
+  };
+
+  const handleCloseModel = () => {
+    setConfirm(false);
+    setDeleteId(null);
+  };
+
   return (
     <div className="notin-container">
       <h2 className="title">Sheet/Jacky Entries</h2>
@@ -48,12 +67,22 @@ const NotInSheetShop = () => {
                 </span>
               </div>
               <div className="entry-buttons">
-                <button className="dropdown-btn" onClick={()=>handleDropDown(entry._id)}>{openEntry === entry._id ? "▲" : "▼"}</button>
-                <button className="close-btn">X</button>
+                <button
+                  className="dropdown-btn"
+                  onClick={() => handleDropDown(entry._id)}
+                >
+                  {openEntry === entry._id ? "▲" : "▼"}
+                </button>
+                <button
+                  className="close-btn"
+                  onClick={() => itemRemove(entry._id)}
+                >
+                  X
+                </button>
               </div>
             </div>
 
-                 {openEntry === entry._id && (
+            {openEntry === entry._id && (
               <div className="entry-items">
                 {entry.items.map((item, idx) => (
                   <p key={idx} className="item-line">
@@ -65,6 +94,19 @@ const NotInSheetShop = () => {
           </div>
         );
       })}
+      {confirm && (
+        <Modal onClose={handleCloseModel}>
+          <h2>Are You Sure?</h2>
+          <div className="model-btn">
+            <button onClick={handleCloseModel} className="confirm-close">
+              Close
+            </button>
+            <button onClick={removeConfirm} className="confirm-confirm">
+              Confirm
+            </button>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };
