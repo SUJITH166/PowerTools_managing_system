@@ -1,0 +1,86 @@
+.notin-container {
+    width: 100%;
+  padding: 20px;
+}
+
+.title {
+  margin-bottom: 15px;
+}
+
+.entry-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.entry-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.entry-info {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.entry-date {
+  /* font-weight: bold; */
+}
+
+.entry-name {
+  font-size: 16px;
+  margin-top: -21px;
+}
+
+.entry-buttons {
+  display: flex;
+  gap: 12px;
+  padding-right: 15px;
+}
+
+.dropdown-btn {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #eee;
+  cursor: pointer;
+}
+
+.close-btn {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  background: #ff6961;
+  color: white;
+  cursor: pointer;
+}
+
+.entry-items {
+  margin-top: 12px;
+  padding-left: 5px;
+}
+
+.item-line {
+  margin: 4px 0;
+}
+
+.date-block {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.entry-date {
+  /* font-weight: bold; */
+  font-size: 16px;
+}
+
+.entry-time {
+  font-size: 12px;
+  color: gray;
+  margin-top: 2px;
+}

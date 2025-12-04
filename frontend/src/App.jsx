@@ -22,11 +22,13 @@ const App = () => {
 
       <div className="content">
         <Routes>
-          <Route path="/SheetJacky" element={<SheetJacky />} >
-           <Route path="SheetShop" element={<SheetShop />} />
+          <Route path="/SheetJacky" element={<SheetJacky />}>
+            <Route index element={<SheetShop />} />
+            <Route path="SheetShop" element={<SheetShop />} />
             <Route path="NotInSheetShop" element={<NotInSheetShop />} />
-            </Route>
+          </Route>
           <Route path="/PowerTools" element={<PowerTools />}>
+            <Route index element={<InShop />} />
             <Route path="InShop" element={<InShop />} />
             <Route path="NotInShop" element={<NotInShop />} />
           </Route>

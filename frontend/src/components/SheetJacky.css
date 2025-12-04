@@ -6,7 +6,7 @@ h1{
     display: flex;
     justify-content: center;
 }
-/* Center buttons horizontally */
+
 .sheet-container {
   display: flex;
   justify-content: center;
@@ -15,7 +15,6 @@ h1{
   margin-top: 20px;
 }
 
-/* Make each button 20% width */
 .sheetbtn {
   width: 30%;
   padding: 12px 24px;
@@ -25,5 +24,25 @@ h1{
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  min-width: 160px; /* avoids becoming too small */
+  min-width: 160px; 
 }
+/* .sheet-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.sheet-tab {
+  padding: 10px 20px;
+  border-radius: 6px;
+  background: #ddd;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+
+.sheet-tab.active {
+  background: #4a90e2;
+  color: white;
+} */
