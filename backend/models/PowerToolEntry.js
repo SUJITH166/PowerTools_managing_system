@@ -1,6 +1,6 @@
 const mongoose=require("mongoose");
 
-const SheetEntrySchema=new mongoose.Schema({
+const PowerToolEntrySchema=new mongoose.Schema({
     name:String,
     number: {
     type: String,
@@ -14,8 +14,8 @@ const SheetEntrySchema=new mongoose.Schema({
       product: String,
       quantity: Number,       
     },],
+    extra:String,
     date:{type:Date,default:Date.now}
 });
 
-module.exports=mongoose.model("SheetEntry",SheetEntrySchema)
-
+module.exports=mongoose.model("PowerToolEntry",PowerToolEntrySchema)

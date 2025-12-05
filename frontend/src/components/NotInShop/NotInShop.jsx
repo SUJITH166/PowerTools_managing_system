@@ -9,7 +9,7 @@ const NotInSheetShop = () => {
   const [confirm, setConfirm] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/sheet/all`)
+    fetch(`${process.env.REACT_APP_API_URL}/tool/all`)
       .then((res) => res.json())
       .then((data) => setEntries(data));
   }, []);
@@ -50,7 +50,7 @@ const NotInSheetShop = () => {
 
   return (
     <div className="notin-container">
-      <h2 className="title">Sheet/Jacky Entries</h2>
+      <h2 className="title">Rental List</h2>
 
       {entries.map((entry) => {
         const formatted = formatDate(entry.date);

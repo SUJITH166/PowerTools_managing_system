@@ -24,7 +24,7 @@ const PowerTools = () => {
 
   return (
     <div className="power-wrapper">
-      <h1>Powertools page</h1>
+      <h1>Powertools Page</h1>
 
       <div className="power-container">
         {content.map((item) => (

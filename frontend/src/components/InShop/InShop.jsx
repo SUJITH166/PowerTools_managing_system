@@ -10,52 +10,91 @@ const InShop = () => {
     { id: 2, name: "Screwdriver", quantity: 10, total: 20 },
     { id: 3, name: "Wrench", quantity: 7, total: 20 },
   ]);
+
   const { setNotInShopData } = useContext(ToolContext);
   const navigate = useNavigate();
+
   const [activeTool, setActiveTool] = useState(null);
+  const [showModel, setShowModel] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     number: "",
-    quantity: "",
+    quantity: "1",
     extra: "",
-    item:"",
+    items: [], // initialize as empty array
   });
 
   const handlePlusClick = (tool) => {
     setActiveTool(tool);
-    setFormData({ name: "", number: "", quantity: "1", extra: "" ,item:tool.name});
+    setFormData({
+      name: "",
+      number: "",
+      quantity: "1",
+      extra: "",
+      items: [
+        {
+          product: tool.name,
+          quantity: 1,
+        },
+      ],
+    });
+    setShowModel(true);
   };
 
   const handleCloseModal = () => {
+    setShowModel(false);
     setActiveTool(null);
   };
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "quantity") {
+      // update quantity inside items array
+      setFormData((prev) => ({
+        ...prev,
+        quantity: value,
+        items: prev.items.map((item) => ({
+          ...item,
+          quantity: Number(value),
+        })),
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    const newData = {
-      name: formData.name,
-      number: formData.number,
-      quantity: formData.quantity,
-      extra: formData.extra,
-      item:formData.item,
-    };
+    if (!/^\d{10}$/.test(formData.number)) {
+      alert("Phone number must be exactly 10 digits");
+      return;
+    }
 
-    setNotInShopData((prev) => [...prev, newData]);
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/tool/add`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
 
-    navigate("/PowerTools/NotInShop");
+    const data = await res.json();
+    if (data.success) {
+      setShowModel(false);
+      setShowPopup(true);
+      setTimeout(() => setShowPopup(false), 2000);
+    }
   };
-  //   console.log("Form submitted for tool:", activeTool.name, formData);
-  //   handleCloseModal();
-  // };
 
   return (
     <div className="in-shop-wrapper">
       <h1>IN SHOP</h1>
+
       <div className="in-shop-main">
         {tools.map((item) => (
           <div className="in-shop-tool" key={item.id}>
@@ -63,6 +102,7 @@ const InShop = () => {
             <span className="tool-quantity">
               {item.quantity}/{item.total}
             </span>
+
             <button className="tool-btn" onClick={() => handlePlusClick(item)}>
               +
             </button>
@@ -70,9 +110,10 @@ const InShop = () => {
         ))}
       </div>
 
-      {activeTool && (
+      {showModel && activeTool && (
         <Modal onClose={handleCloseModal}>
           <h2>Add Info for {activeTool.name}</h2>
+
           <form className="tool-form" onSubmit={handleFormSubmit}>
             <input
               type="text"
@@ -82,13 +123,16 @@ const InShop = () => {
               onChange={handleInputChange}
               required
             />
+
             <input
               type="text"
               name="number"
               placeholder="Phone Number"
               value={formData.number}
               onChange={handleInputChange}
+              required
             />
+
             <input
               type="number"
               name="quantity"
@@ -97,6 +141,7 @@ const InShop = () => {
               onChange={handleInputChange}
               required
             />
+
             <input
               type="text"
               name="extra"
@@ -104,12 +149,9 @@ const InShop = () => {
               value={formData.extra}
               onChange={handleInputChange}
             />
+
             <div className="button-row">
-              <button
-                type="button"
-                className="close-btn"
-                onClick={handleCloseModal}
-              >
+              <button type="button" className="close-btn" onClick={handleCloseModal}>
                 Close
               </button>
 
@@ -120,6 +162,8 @@ const InShop = () => {
           </form>
         </Modal>
       )}
+
+      {showPopup && <div className="popup-class">Saved Successfully!</div>}
     </div>
   );
 };

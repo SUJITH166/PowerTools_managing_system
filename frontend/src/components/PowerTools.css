@@ -2,7 +2,7 @@
 .power-wrapper {
   display: flex;
   flex-direction: column;
-  width: 45%;
+  width: 100%;
   /* display: block; */
 }
 h1{
@@ -15,12 +15,14 @@ h1{
   justify-content: center;
   gap: 20px;
   /* width: 100%; */
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 /* Make each button 20% width */
 .powertoolbtn {
-width: 30%;
+width: 200px;
+/* margin: auto; */
+margin-left: 3px;
   padding: 12px 24px;
   font-size: 18px;
   background: #209a53;
