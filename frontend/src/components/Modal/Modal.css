@@ -2,9 +2,10 @@
 .modal-backdrop {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  /* left: 0; */
+  width: 2000px;
   height: 100%;
+  /* min-width: 50px; */
   background-color: rgba(0,0,0,0.5); /* dark transparent background */
   display: flex;
   justify-content: center;
