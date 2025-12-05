@@ -16,4 +16,17 @@ router.get('/all',async(req,res)=>{
     const entries=await PowerToolEntry.find().sort({date:-1});
     res.json(entries);
 });
+router.delete("/:id", async (req, res) => {
+  try {
+    const deleted = await PowerToolEntry.findByIdAndDelete(req.params.id);
+    if (!deleted) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Item not found" });
+    }
+    res.json({ success: true, message: "Item Successfully deleted" });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
 module.exports=router;

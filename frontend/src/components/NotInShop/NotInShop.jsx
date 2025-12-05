@@ -8,6 +8,8 @@ const NotInSheetShop = () => {
   const [openEntry, setOpenEntry] = useState(null);
   const [confirm, setConfirm] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+    const [deleting, setDeleting] = useState(false);
+  
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/tool/all`)
       .then((res) => res.json())
@@ -37,11 +39,27 @@ const NotInSheetShop = () => {
     setConfirm(true);
   };
 
-  const removeConfirm = () => {
+  const removeConfirm =async (deleteId) => {
+     setDeleting(true);
+     try {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/tool/${deleteId}`, {
+      method: "DELETE",
+    });
+
+    const data = await res.json();
+    if (data.success) {
     setEntries(entries.filter((entry) => entry._id !== deleteId));
+    alert("Deleted Successfully");
+    }
+  }catch(err){
+    console.error(err);
+    alert("Error deleting item");
+  }
+  setDeleting(false);
     setConfirm(false);
     setDeleteId(null);
   };
+
 
   const handleCloseModel = () => {
     setConfirm(false);
@@ -102,7 +120,7 @@ const NotInSheetShop = () => {
             <button onClick={handleCloseModel} className="confirm-close">
               Close
             </button>
-            <button onClick={removeConfirm} className="confirm-confirm">
+            <button onClick={()=>removeConfirm(deleteId)} className="confirm-confirm">
               Confirm
             </button>
           </div>

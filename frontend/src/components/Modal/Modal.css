@@ -3,7 +3,11 @@
   position: fixed;
   top: 0;
   /* left: 0; */
-  width: 2000px;
+  /* width: 100%; */
+  /* width: 1000px; */
+  margin: auto;
+  min-width: 500px;
+  width: auto;
   height: 100%;
   /* min-width: 50px; */
   background-color: rgba(0,0,0,0.5); /* dark transparent background */
