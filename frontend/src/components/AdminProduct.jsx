@@ -4,7 +4,7 @@ const AdminProducts = () => {
   const token = localStorage.getItem("adminToken");
   const [products, setProducts] = useState([]);
   const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [total, setTotal] = useState(""); // renamed from quantity to total
   const [type, setType] = useState("sheet");
 
   useEffect(() => {
@@ -24,12 +24,17 @@ const AdminProducts = () => {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token
       },
-      body: JSON.stringify({ name, quantity: Number(quantity), type })
+      body: JSON.stringify({ name, total: Number(total), type }) // send total
     });
+
     const data = await res.json();
     if (data.success) {
       setProducts(prev => [...prev, data.product]);
-      setName(""); setQuantity(""); setType("sheet");
+      setName("");
+      setTotal("");
+      setType("sheet");
+    } else {
+      alert("Error adding product: " + data.error);
     }
   };
 
@@ -44,18 +49,31 @@ const AdminProducts = () => {
   return (
     <div>
       <h2>Admin Products</h2>
-      <input placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
-      <input placeholder="Quantity" value={quantity} type="number" onChange={e => setQuantity(e.target.value)} />
+
+      <input
+        placeholder="Product Name"
+        value={name}
+        onChange={e => setName(e.target.value)}
+      />
+
+      <input
+        placeholder="Total Stock"
+        value={total}
+        type="number"
+        onChange={e => setTotal(e.target.value)}
+      />
+
       <select value={type} onChange={e => setType(e.target.value)}>
         <option value="sheet">Sheet</option>
         <option value="powertool">PowerTool</option>
       </select>
+
       <button onClick={handleAdd}>Add Product</button>
 
       <ul>
         {products.map(p => (
           <li key={p._id}>
-            {p.name} - {p.quantity} ({p.type})
+            {p.name} — qty: {p.quantity} / total: {p.total} ({p.type})
             <button onClick={() => handleDelete(p._id)}>Delete</button>
           </li>
         ))}

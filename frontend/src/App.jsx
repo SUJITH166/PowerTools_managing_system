@@ -6,8 +6,9 @@ import InShop from "./components/InShop/InShop";
 import NotInShop from "./components/NotInShop/NotInShop";
 import SheetShop from "./components/SheetShop/SheetShop";
 import NotInSheetShop from "./components/NotInSheetShop/NotInSheetShop";
-import AdminLogin from "./components/AdminLogin";
-import AdminProducts from "./components/AdminProducts";
+// import AdminLogin from "./components/AdminLogin";
+import AdminProducts from "./components/AdminProducts/AdminProducts";
+import Admin from "./components/Admin/Admin"
 import "./App.css";
 
 const App = () => {
@@ -19,7 +20,7 @@ const App = () => {
         <div className="top-buttons">
           <button onClick={() => navigate("/SheetJacky")}>Sheet & Jacky</button>
           <button onClick={() => navigate("/PowerTools")}>PowerTools</button>
-            <button onClick={() => navigate("/admin/login")}>Admin Login</button>
+            <button onClick={() => navigate("/admin")}>Admin Login</button>
         </div>
       </div>
 
@@ -39,7 +40,8 @@ const App = () => {
           </Route>
 
           {/* Admin routes */}
-          <Route path="/admin/login" element={<AdminLogin />} />
+          {/* <Route path="/admin/login" element={<AdminLogin />} /> */}
+           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/products" element={<AdminProducts />} />
           {/* </Route> */}
         </Routes>

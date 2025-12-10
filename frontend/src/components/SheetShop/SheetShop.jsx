@@ -1,52 +1,68 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SheetShop.css";
 import Modal from "../Modal/Modal";
+
 const SheetShop = () => {
-  const [sheetJacky, setSheetJacky] = useState([
-    { id: 1, name: "Sheet", quantity: 100, total: 150 },
-    { id: 2, name: "Jackey", quantity: 100, total: 150 },
-    { id: 3, name: "Adjustable(B)", quantity: 100, total: 150 },
-    { id: 4, name: "Adjustable(s)", quantity: 100, total: 150 },
-  ]);
+  const [sheetJacky, setSheetJacky] = useState([]);
   const [showModel, setShowModel] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/product/type/sheet`);
+    const data = await res.json();
+
+    if (data.success) {
+      setSheetJacky(data.products); // IMPORTANT FIX
+    } else {
+      setSheetJacky([]); // fallback
+    }
+  };
 
   const [formData, setFormData] = useState({
     name: "",
     number: "",
     items: [
-      {
-        product: "",
-        quantity: "",
-      },
+      { product: "", quantity: "" }
     ],
   });
-  const handleclickAdd = () => {
-    setShowModel(true);
-  };
-  const handleClose = () => {
-    setShowModel(false);
-  };
+
+  const handleclickAdd = () => setShowModel(true);
+  const handleClose = () => setShowModel(false);
+
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleItemChange = (index, e) => {
-    const updateItems = [...formData.items];
-    updateItems[index][e.target.name] = e.target.value;
-    setFormData({ ...formData, items: updateItems });
+    const update = [...formData.items];
+    update[index][e.target.name] = e.target.value;
+    setFormData({ ...formData, items: update });
   };
+
   const handleAddMore = () => {
     setFormData({
       ...formData,
-      items: [...formData.items, { product: "", quantity: "" }],
+      items: [...formData.items, { product: "", quantity: "" }]
     });
   };
+
+  const handleRemoveItem = (index) => {
+    const updated = formData.items.filter((_, i) => i !== index);
+    setFormData({ ...formData, items: updated });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // phone validation
     if (!/^\d{10}$/.test(formData.number)) {
-  alert("Phone number must be exactly 10 digits");
-  return;
-}
+      alert("Phone number must be exactly 10 digits");
+      return;
+    }
 
     const res = await fetch(`${process.env.REACT_APP_API_URL}/sheet/add`, {
       method: "POST",
@@ -55,40 +71,40 @@ const SheetShop = () => {
     });
 
     const data = await res.json();
+
     if (data.success) {
       setShowModel(false);
       setShowPopup(true);
-      setTimeout(() => {
-        setShowPopup(false);
-      }, 2000);
+      fetchProducts();
+      setTimeout(() => setShowPopup(false), 2000);
     }
   };
 
-  const handleRemoveItem = (index) => {
-    const filterItem = formData.items.filter((_, i) => i !== index);
-    setFormData({ ...formData, items: filterItem });
-  };
   return (
     <div className="sheetshop-main">
       {showPopup && <div className="popup-class">Saved Successfully ✔</div>}
+
       <h2>Total</h2>
+
       <div className="sheetshop-container">
         {sheetJacky.map((item) => (
-          <div key={item.id} className="sheetshop-total">
+          <div key={item._id} className="sheetshop-total">
             <span>{item.name}</span>
             <span>
-              {item.quantity}/{item.total}
+              {item.quantity}/{item.totalQuantity}
             </span>
           </div>
         ))}
+
         <button className="sheetshop-btn" onClick={handleclickAdd}>
           Add
         </button>
       </div>
-      {/* {showPopup && (<div className="popup-class">Saved Successfully ✔</div>)} */}
+
       {showModel && (
         <Modal onClose={handleClose}>
           <h2>Add Sheet/Jacky Entry</h2>
+
           <form className="sheet-form" onSubmit={handleSubmit}>
             <input
               className="sheet-form-in"
@@ -99,6 +115,7 @@ const SheetShop = () => {
               onChange={handleInputChange}
               required
             />
+
             <input
               className="sheet-form-in"
               type="text"
@@ -107,17 +124,13 @@ const SheetShop = () => {
               value={formData.number}
               onChange={(e) => {
                 const value = e.target.value;
-
-                // Allow only numbers
                 if (!/^\d*$/.test(value)) return;
-
-                // Limit to 10 digits
                 if (value.length > 10) return;
-
                 setFormData({ ...formData, number: value });
               }}
               required
             />
+
             {formData.items.map((item, index) => (
               <div key={index} className="product-row">
                 <select
@@ -128,12 +141,14 @@ const SheetShop = () => {
                   required
                 >
                   <option value="">Select</option>
+
                   {sheetJacky.map((p) => (
-                    <option key={p.id} value={p.name}>
+                    <option key={p._id} value={p.name}>
                       {p.name}
                     </option>
                   ))}
                 </select>
+
                 <input
                   className="sheet-option"
                   type="number"
@@ -143,6 +158,7 @@ const SheetShop = () => {
                   onChange={(e) => handleItemChange(index, e)}
                   required
                 />
+
                 {formData.items.length > 1 && (
                   <button
                     type="button"
@@ -154,9 +170,11 @@ const SheetShop = () => {
                 )}
               </div>
             ))}
+
             <button type="button" className="add-more" onClick={handleAddMore}>
               + More
             </button>
+
             <div className="button-row">
               <button type="button" className="close-btn" onClick={handleClose}>
                 Close
