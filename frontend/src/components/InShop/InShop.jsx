@@ -1,18 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState,  useEffect } from "react";
 import "./InShop.css";
 import Modal from "../Modal/Modal";
-import { ToolContext } from "../../context/ToolContext";
-import { useNavigate } from "react-router-dom";
+// import { ToolContext } from "../../context/ToolContext";
+// import { useNavigate } from "react-router-dom";
 
 const InShop = () => {
-  const [tools, setTools] = useState([
-    { id: 1, name: "Hammer", quantity: 5, total: 20 },
-    { id: 2, name: "Screwdriver", quantity: 10, total: 20 },
-    { id: 3, name: "Wrench", quantity: 7, total: 20 },
-  ]);
-
-  const { setNotInShopData } = useContext(ToolContext);
-  const navigate = useNavigate();
+  const [tools, setTools] = useState([]);
+  // const { setNotInShopData } = useContext(ToolContext);
+  // const navigate = useNavigate();
 
   const [activeTool, setActiveTool] = useState(null);
   const [showModel, setShowModel] = useState(false);
@@ -25,6 +20,24 @@ const InShop = () => {
     extra: "",
     items: [], // initialize as empty array
   });
+
+  useEffect(() => {
+    fetchTools();
+  }, []);
+
+  const fetchTools = async () => {
+    const res = await fetch(
+      `${process.env.REACT_APP_API_URL}/product/type/powertool`
+    );
+    const data = await res.json();
+    // console.log("DATA FROM API =", data);
+
+    if (data.success) {
+      setTools(data.products);
+    } else {
+      setTools([]);
+    }
+  };
 
   const handlePlusClick = (tool) => {
     setActiveTool(tool);
@@ -87,6 +100,7 @@ const InShop = () => {
     if (data.success) {
       setShowModel(false);
       setShowPopup(true);
+      fetchTools();
       setTimeout(() => setShowPopup(false), 2000);
     }
   };
@@ -97,10 +111,10 @@ const InShop = () => {
 
       <div className="in-shop-main">
         {tools.map((item) => (
-          <div className="in-shop-tool" key={item.id}>
+          <div className="in-shop-tool" key={item._id}>
             <span className="tool-name">{item.name}</span>
             <span className="tool-quantity">
-              {item.quantity}/{item.total}
+              {item.quantity}/{item.totalQuantity}
             </span>
 
             <button className="tool-btn" onClick={() => handlePlusClick(item)}>
@@ -151,7 +165,11 @@ const InShop = () => {
             />
 
             <div className="button-row">
-              <button type="button" className="close-btn" onClick={handleCloseModal}>
+              <button
+                type="button"
+                className="close-btn"
+                onClick={handleCloseModal}
+              >
                 Close
               </button>
 
