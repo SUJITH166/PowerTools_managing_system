@@ -1,9 +1,11 @@
 .admin-container {
-  max-width: 600px;
+  min-width: 300px;
   margin: 2rem auto;
   padding: 1rem;
   border: 1px solid #ddd;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 .admin-container h2 {
@@ -13,6 +15,7 @@
 
 .admin-form {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
   margin-bottom: 1rem;
 }

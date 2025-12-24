@@ -47,7 +47,7 @@ const AdminProducts = () => {
   };
 
   return (
-    <div>
+    <div className="main-wrapper">
       <h2>Admin Products</h2>
 
       <input
