@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const PowerToolEntry=require("../models/PowerToolEntry");
-const Product=require('../models/Products')
+const Product=require('../models/Products');
 
 
 router.post("/add", async (req, res) => {
@@ -54,12 +54,19 @@ router.get('/all',async(req,res)=>{
 });
 router.delete("/:id", async (req, res) => {
   try {
-    const deleted = await PowerToolEntry.findByIdAndDelete(req.params.id);
+    const deleted = await PowerToolEntry.findById(req.params.id);
     if (!deleted) {
       return res
         .status(404)
         .json({ success: false, message: "Item not found" });
     }
+    for(const item of deleted.items){
+      await Product.findOneAndUpdate(
+        {name:item.product},
+        {$inc:{quantity:item.quantity}}
+      );
+    }
+    await PowerToolEntry.findByIdAndDelete(req.params.id)
     res.json({ success: true, message: "Item Successfully deleted" });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
