@@ -13,7 +13,7 @@ const InShop = () => {
   const [activeTool, setActiveTool] = useState(null);
   const [showModel, setShowModel] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [isLoading,setIsLoading]=useState(false);
+  const [isLoading,setIsLoading]=useState(true);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -25,7 +25,7 @@ const InShop = () => {
 
   useEffect(() => {
     fetchTools();
-    setIsLoading(true);
+    setIsLoading(false);
   }, []);
 
   const fetchTools = async () => {

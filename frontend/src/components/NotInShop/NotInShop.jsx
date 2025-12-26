@@ -72,7 +72,7 @@ const NotInSheetShop = () => {
   return (
     <div className="notin-container">
       <h2 className="title">Rental List</h2>
-      {isLoading&&<diV><SkeletonCard card={7}/></diV>}
+      {isLoading&&<div><SkeletonCard card={7}/></div>}
       {entries.map((entry) => {
         const formatted = formatDate(entry.date);
         return (
