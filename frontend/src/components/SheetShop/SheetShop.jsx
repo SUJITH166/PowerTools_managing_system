@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./SheetShop.css";
 import Modal from "../Modal/Modal";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+import SkeletonCard from "../SkeletonCard/SkeletonCard";
 
 const SheetShop = () => {
   const [sheetJacky, setSheetJacky] = useState([]);
   const [showModel, setShowModel] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [isLoading,setIsLoading]=useState(true)
 
   useEffect(() => {
     fetchProducts();
@@ -17,6 +21,7 @@ const SheetShop = () => {
 
     if (data.success) {
       setSheetJacky(data.products); // IMPORTANT FIX
+      setIsLoading(false);
     } else {
       setSheetJacky([]); // fallback
     }
@@ -87,11 +92,14 @@ const SheetShop = () => {
       <h2>Total</h2>
 
       <div className="sheetshop-container">
+        {isLoading&&
+        <div className="sheetshop-total-s"><SkeletonCard card={6}/></div>}
+        
         {sheetJacky.map((item) => (
           <div key={item._id} className="sheetshop-total">
-            <span>{item.name}</span>
+            <span>{item.name||<Skeleton/>}</span>
             <span>
-              {item.quantity}/{item.totalQuantity}
+              {item.quantity||<Skeleton/>}/{item.totalQuantity||<Skeleton/>}
             </span>
           </div>
         ))}

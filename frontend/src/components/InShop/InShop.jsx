@@ -1,6 +1,7 @@
 import React, { useState,  useEffect } from "react";
 import "./InShop.css";
 import Modal from "../Modal/Modal";
+import SkeletonCard from "../SkeletonCard/SkeletonCard";
 // import { ToolContext } from "../../context/ToolContext";
 // import { useNavigate } from "react-router-dom";
 
@@ -12,6 +13,7 @@ const InShop = () => {
   const [activeTool, setActiveTool] = useState(null);
   const [showModel, setShowModel] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [isLoading,setIsLoading]=useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -23,6 +25,7 @@ const InShop = () => {
 
   useEffect(() => {
     fetchTools();
+    setIsLoading(true);
   }, []);
 
   const fetchTools = async () => {
@@ -110,6 +113,7 @@ const InShop = () => {
       <h1>IN SHOP</h1>
 
       <div className="in-shop-main">
+        {isLoading&&<div><SkeletonCard card={6}/></div>}
         {tools.map((item) => (
           <div className="in-shop-tool" key={item._id}>
             <span className="tool-name">{item.name}</span>

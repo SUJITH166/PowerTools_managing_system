@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./NotInSheetShop.css"; // ⬅ import CSS file
 import Modal from "../Modal/Modal";
+import SkeletonCard from "../SkeletonCard/SkeletonCard";
 
 const NotInSheetShop = () => {
   const [entries, setEntries] = useState([]);
@@ -8,10 +9,12 @@ const NotInSheetShop = () => {
   const [confirm, setConfirm] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [deleting, setDeleting] = useState(false);
+  const [isLoading,setIsLoading]=useState(true)
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/sheet/all`)
       .then((res) => res.json())
       .then((data) => setEntries(data));
+      setIsLoading(false);
   }, []);
 
   const formatDate = (iso) => {
@@ -66,11 +69,12 @@ const NotInSheetShop = () => {
   return (
     <div className="notin-container">
       <h2 className="title">Sheet/Jacky Entries</h2>
-
+      {isLoading&&<div><SkeletonCard card={8}/></div>}
       {entries.map((entry) => {
         const formatted = formatDate(entry.date);
         return (
           <div key={entry._id} className="entry-card">
+            
             <div className="entry-top">
               <div className="entry-info">
                 <div className="date-block">

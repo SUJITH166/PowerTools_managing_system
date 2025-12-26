@@ -13,6 +13,13 @@
   /* width: 30%;   */
 
 }
+.sheetshop-total-s{
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 88%; 
+  font-size: 18px;
+}
 .sheetshop-total{
     display: flex;
   justify-content: space-between;  
