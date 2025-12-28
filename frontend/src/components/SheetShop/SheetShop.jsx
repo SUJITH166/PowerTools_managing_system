@@ -29,7 +29,7 @@ const SheetShop = () => {
   } catch (err) {
     setSheetJacky([]);
   } finally {
-    setIsLoading(false);
+    setIsLoading(true);
   }
 };
 
@@ -100,7 +100,7 @@ const SheetShop = () => {
 
       <div className="sheetshop-container">
         {isLoading&&
-        <div className="sheetshop-total-s"><SkeletonCard card={6}/></div>}
+        <SkeletonCard card={6}/>}
         
         {sheetJacky.map((item) => (
           <div key={item._id} className="sheetshop-total">
