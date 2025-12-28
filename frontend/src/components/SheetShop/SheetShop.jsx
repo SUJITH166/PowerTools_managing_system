@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./SheetShop.css";
 import Modal from "../Modal/Modal";
-import Skeleton from 'react-loading-skeleton'
+// import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import SkeletonCard from "../SkeletonCard/SkeletonCard";
 
@@ -16,16 +16,23 @@ const SheetShop = () => {
   }, []);
 
   const fetchProducts = async () => {
+  setIsLoading(true);
+  try {
     const res = await fetch(`${process.env.REACT_APP_API_URL}/product/type/sheet`);
     const data = await res.json();
 
     if (data.success) {
-      setSheetJacky(data.products); // IMPORTANT FIX
-      setIsLoading(false);
+      setSheetJacky(data.products);
     } else {
-      setSheetJacky([]); // fallback
+      setSheetJacky([]);
     }
-  };
+  } catch (err) {
+    setSheetJacky([]);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const [formData, setFormData] = useState({
     name: "",
@@ -97,9 +104,9 @@ const SheetShop = () => {
         
         {sheetJacky.map((item) => (
           <div key={item._id} className="sheetshop-total">
-            <span>{item.name||<Skeleton/>}</span>
+            <span>{item.name}</span>
             <span>
-              {item.quantity||<Skeleton/>}/{item.totalQuantity||<Skeleton/>}
+              {item.quantity}/{item.totalQuantity}
             </span>
           </div>
         ))}

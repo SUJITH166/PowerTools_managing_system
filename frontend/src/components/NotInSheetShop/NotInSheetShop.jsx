@@ -11,10 +11,23 @@ const NotInSheetShop = () => {
   const [deleting, setDeleting] = useState(false);
   const [isLoading,setIsLoading]=useState(true)
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/sheet/all`)
-      .then((res) => res.json())
-      .then((data) => setEntries(data));
-      setIsLoading(false);
+    // fetch(`${process.env.REACT_APP_API_URL}/sheet/all`)
+    //   .then((res) => res.json())
+    //   .then((data) => setEntries(data));
+    //   setIsLoading(false);
+    const fetchEntries= async ()=>{
+      try{
+        const res=await fetch(`${process.env.REACT_APP_API_URL}/sheet/all`);
+        const data=await res.json();
+        setEntries(data);
+      }catch(err){
+        console.error(err);
+        setEntries([]);
+      }finally{
+        setIsLoading(false);
+      }
+    }
+    fetchEntries();
   }, []);
 
   const formatDate = (iso) => {

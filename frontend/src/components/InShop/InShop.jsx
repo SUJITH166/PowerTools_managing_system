@@ -25,20 +25,23 @@ const InShop = () => {
 
   useEffect(() => {
     fetchTools();
-    setIsLoading(false);
+    // setIsLoading(false);
   }, []);
 
   const fetchTools = async () => {
-    const res = await fetch(
+   try{ const res = await fetch(
       `${process.env.REACT_APP_API_URL}/product/type/powertool`
     );
     const data = await res.json();
-    // console.log("DATA FROM API =", data);
-
     if (data.success) {
       setTools(data.products);
     } else {
       setTools([]);
+    }}catch(err){
+      console.error(err);
+      setTools([]);
+    }finally{
+      setIsLoading(false)
     }
   };
 

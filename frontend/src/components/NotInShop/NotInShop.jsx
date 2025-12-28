@@ -13,10 +13,19 @@ const NotInSheetShop = () => {
     const [isLoading,setIsLoading]=useState(true)
   
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/tool/all`)
-      .then((res) => res.json())
-      .then((data) => setEntries(data));
-      setIsLoading(false);
+      const fetchData=async()=>{
+        try{
+          const res=await fetch(`${process.env.REACT_APP_API_URL}/tool/all`);
+          const data=await res.json();
+          setEntries(data??[]);
+        }catch(err){
+          console.error(err);
+          setEntries([]);
+        }finally{
+          setIsLoading(false)
+        }
+      };
+      fetchData();
   }, []);
 
   const formatDate = (iso) => {
