@@ -29,7 +29,7 @@ const SheetShop = () => {
   } catch (err) {
     setSheetJacky([]);
   } finally {
-    setIsLoading(true);
+    setIsLoading(false);
   }
 };
 
